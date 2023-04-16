@@ -1,0 +1,12 @@
+download_dir: /tmp
+home: "{{ lookup('env', 'HOME') }}"
+config_dir: "{{ home }}/.config"
+repository: https://github.com/SamiElkateb/dotfiles.git 
+
+keys:
+  - src_name: id_rsa_general
+    dest_name: id_rsa
+    mode: 600
+  - src_name: id_rsa_general.pub
+    dest_name: id_rsa.pub
+    mode: 644

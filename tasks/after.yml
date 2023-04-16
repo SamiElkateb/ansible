@@ -1,0 +1,20 @@
+  - name: "Ensure Git Repository Updated"
+    git:
+      repo: "{{ repository }}"
+      dest: "{{ home }}/.config"
+      accept_hostkey: true
+
+  - name: "Add GitHub token"
+    shell: "echo \"{{lookup('unvault', '{{ config_dir }}/personal/github_token')}}\"|gh auth login --with-token "
+
+  - name: "Delete OTC"
+    command: "otc.sh delete"
+
+  - name: Copy keys
+    copy:
+      src: "{{ config_dir }}/personal/{{ item.src_name | default('item') }}"
+      dest: "{{ home }}/.ssh/{{ item.dest_name | default('item') }}"
+      decrypt: yes
+      mode: "{{ item.mode | default(700) }}"
+    loop: "{{ keys }}"
+

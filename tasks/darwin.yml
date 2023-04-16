@@ -1,0 +1,59 @@
+  - name: Add Hombrew Taps
+    community.general.homebrew_tap:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    loop: "{{ homebrew_taps }}"
+
+  - name: Ensure Homebrew Packages Installed
+    community.general.homebrew:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    loop: "{{ homebrew_installed_packages }}"
+
+  - name: Ensure Homebrew Casks Installed
+    community.general.homebrew_cask:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    loop: "{{ homebrew_cask_apps }}"
+
+  - name: Reset Dock
+    command: defaults write com.apple.dock persistent-apps -array
+
+  - name: Add Apps to Dock
+    command: >
+      defaults write com.apple.dock persistent-apps -array-add 
+      '<dict>
+        <key>tile-data</key>
+        <dict>
+          <key>file-data</key>
+          <dict>
+            <key>_CFURLString</key>
+            <string>{{ item.name | default(item) }}</string>
+            <key>_CFURLStringType</key>
+            <integer>0</integer>
+          </dict>
+        </dict>
+      </dict>'
+    loop: "{{ dock_apps }}"
+
+  - name: Restart Dock
+    command: killall Dock
+
+  # Install Nerd Fonts
+  - name: Ensure fonts directory
+    file:
+      path: "{{ home }}/Library/Fonts/NerdFonts"
+      state: directory
+
+  - name: Check Hack exists
+    shell: "ls {{ home }}/Library/Fonts/NerdFonts/Hack*Nerd*Font*Complete*"
+    register: hack_exists
+    ignore_errors: true
+
+  - name: Ensure Nerd Font Installed
+    shell: |
+      git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts {{ download_dir }}/nerd-fonts
+      cd {{ download_dir }}/nerd-fonts
+      git sparse-checkout add patched-fonts/Hack
+      ./install.sh hack
+    when: hack_exists is failed

@@ -1,0 +1,21 @@
+  - name: "Ensure Git Repository Present"
+    git:
+      repo: "{{ repository }}"
+      dest: "{{ home }}/.config"
+      recursive: false
+
+  - name: Check .zshrc exists
+    stat:
+      path: "{{ home }}/.zshrc"
+    register: stat_result
+
+  - name: Ensure zsh sourced
+    shell: |
+        touch {{ home }}/.zshrc
+        echo "source {{ home }}/.config/zsh/.zshrc" >> "{{ home }}/.zshrc"
+        source {{ home }}/.zshrc
+    changed_when: false
+    when: not stat_result.stat.exists
+
+  - name: "Use OTC"
+    command: "otc.sh use"

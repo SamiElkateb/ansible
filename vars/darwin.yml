@@ -1,0 +1,23 @@
+homebrew_installed_packages:
+  - neovim
+  - tmux
+  - koekeishiya/formulae/yabai
+  - skhd
+  - ripgrep
+  - fzf
+  - zathura
+  - gh
+
+homebrew_taps:
+  - zegervdv/zathura
+
+homebrew_cask_apps:
+  - alacritty
+  - firefox
+  - google-chrome
+  - postman
+
+dock_apps:
+  - /System/Applications/Launchpad.app
+  - /Applications/Firefox.app
+  - /Applications/Alacritty.app
