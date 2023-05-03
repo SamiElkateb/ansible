@@ -7,6 +7,8 @@ homebrew_installed_packages:
   - fzf
   - zathura
   - gh
+  - lazygit
+  # TODO: add nvm 
 
 homebrew_taps:
   - zegervdv/zathura
@@ -16,6 +18,9 @@ homebrew_cask_apps:
   - firefox
   - google-chrome
   - postman
+  - raycast
+  - karabiner-elements
+  - lulu
 
 dock_apps:
   - /System/Applications/Launchpad.app
