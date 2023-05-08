@@ -1,8 +1,5 @@
-  - name: Add Hombrew Taps
-    community.general.homebrew_tap:
-      name: "{{ item.name | default(item) }}"
-      state: "{{ item.state | default('present') }}"
-    loop: "{{ homebrew_taps }}"
+  - name: Packages
+    include_tasks: darwin/packages.yml
 
   - name: Ensure Homebrew Packages Installed
     community.general.homebrew:
@@ -36,7 +33,12 @@
       </dict>'
     loop: "{{ dock_apps }}"
 
-  - name: Add Shortcuts
+  - name: Ensure Number Spaces
+    command: "{{ install_scripts_dir}}/set_min_spaces.sh 10"
+    register: spaces
+    changed_when: "'No new spaces added.' not in spaces.stdout"
+
+  - name: Change Shortcuts
     command: >
       defaults write com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add {{ item.key }} '
         <dict>
@@ -51,7 +53,15 @@
             </array>
           </dict>
         </dict>'
-    loop: "{{ shortcuts }}"
+    loop: "{{ enabled_shortcuts }}"
+
+  - name: Disable Shortcuts
+    command: >
+      defaults write com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add {{ item.key }} '
+        <dict>
+          <key>enabled</key><{{ item.enabled }}/>
+        </dict>'
+    loop: "{{ disabled_shortcuts }}"
 
   - name: Restart Dock
     command: killall Dock
