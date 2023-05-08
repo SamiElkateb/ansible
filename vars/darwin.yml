@@ -26,3 +26,400 @@ dock_apps:
   - /System/Applications/Launchpad.app
   - /Applications/Firefox.app
   - /Applications/Alacritty.app
+
+shortcuts:
+  - key: 10
+    enabled: true
+    parameters:
+      - 65535
+      - 96
+      - 8650752
+  - key: 11
+    enabled: true
+    parameters:
+      - 65535
+      - 97
+      - 8650752
+  - key: 118
+    enabled: true
+    parameters:
+      - 38
+      - 18
+      - 1048576
+  - key: 119
+    enabled: true
+    parameters:
+      - 233
+      - 19
+      - 1048576
+  - key: 12
+    enabled: true
+    parameters:
+      - 65535
+      - 122
+      - 8650752
+  - key: 120
+    enabled: true
+    parameters:
+      - 34
+      - 20
+      - 1048576
+  - key: 121
+    enabled: true
+    parameters:
+      - 39
+      - 21
+      - 1048576
+  - key: 122
+    enabled: true
+    parameters:
+      - 40
+      - 23
+      - 1048576
+  - key: 123
+    enabled: true
+    parameters:
+      - 167
+      - 22
+      - 1048576
+  - key: 124
+    enabled: true
+    parameters:
+      - 232
+      - 26
+      - 1048576
+  - key: 125
+    enabled: true
+    parameters:
+      - 33
+      - 28
+      - 1048576
+  - key: 126
+    enabled: true
+    parameters:
+      - 231
+      - 25
+      - 1048576
+  - key: 13
+    enabled: true
+    parameters:
+      - 65535
+      - 98
+      - 8650752
+  - key: 15
+    enabled: false
+    parameters:
+      - 33
+      - 28
+      - 1572864
+  - key: 16
+    enabled: false
+  - key: 160
+    enabled: false
+    parameters:
+      - 6553
+      - 6553
+      - 0
+  - key: 162
+    enabled: true
+    parameters:
+      - 65535
+      - 96
+      - 9961472
+  - key: 163
+    enabled: false
+    parameters:
+      - 6553
+      - 6553
+      - 0
+  - key: 164
+    enabled: true
+    parameters:
+      - 262144
+      - 429470515
+  - key: 17
+    enabled: false
+    parameters:
+      - 61
+      - 24
+      - 1572864
+  - key: 175
+    enabled: false
+    parameters:
+      - 6553
+      - 6553
+      - 0
+  - key: 179
+    enabled: false
+    parameters:
+      - 6553
+      - 6553
+      - 0
+  - key: 18
+    enabled: 0
+  - key: 181
+    enabled: false
+    parameters:
+      - 54
+      - 22
+      - 1179648
+  - key: 182
+    enabled: false
+    parameters:
+      - 54
+      - 22
+      - 1441792
+  - key: 184
+    enabled: false
+    parameters:
+      - 53
+      - 23
+      - 1179648
+  - key: 19
+    enabled: false
+    parameters:
+      - 45
+      - 27
+      - 1572864
+  - key: 190
+    enabled: false
+    parameters:
+      - 113
+      - 0
+      - 8388608
+  - key: 20
+    enabled: false
+  - key: 21
+    enabled: true
+    parameters:
+      - 56
+      - 28
+      - 1835008
+  - key: 22
+    enabled: 0
+  - key: 23
+    enabled: false
+    parameters:
+      - 41
+      - 0
+      - 1572864
+  - key: 24
+    enabled: 0
+  - key: 25
+    enabled: false
+    parameters:
+      - 46
+      - 47
+      - 1835008
+  - key: 26
+    enabled: false
+    parameters:
+      - 44
+      - 43
+      - 1835008
+  - key: 27
+    enabled: false
+    parameters:
+      - 96
+      - 50
+      - 1048576
+  - key: 28
+    enabled: false
+    parameters:
+      - 51
+      - 20
+      - 1179648
+  - key: 29
+    enabled: false
+    parameters:
+      - 51
+      - 20
+      - 1441792
+  - key: 30
+    enabled: false
+    parameters:
+      - 52
+      - 21
+      - 1179648
+  - key: 31
+    enabled: false
+    parameters:
+      - 52
+      - 21
+      - 1441792
+  - key: 32
+    enabled: false
+    parameters:
+      - 65535
+      - 126
+      - 8650752
+  - key: 33
+    enabled: false
+    parameters:
+      - 65535
+      - 125
+      - 8650752
+  - key: 34
+    enabled: false
+    parameters:
+      - 65535
+      - 126
+      - 8781824
+  - key: 35
+    enabled: false
+    parameters:
+      - 65535
+      - 125
+      - 8781824
+  - key: 36
+    enabled: true
+    parameters:
+      - 65535
+      - 103
+      - 8388608
+  - key: 37
+    enabled: true
+    parameters:
+      - 65535
+      - 103
+      - 8519680
+  - key: 44
+    enabled: false
+  - key: 45
+    enabled: false 
+  - key: 46
+    enabled: false
+  - key: 47
+    enabled: false
+  - key: 51
+    enabled: true
+    parameters:
+      - 39
+      - 50
+      - 1572864
+  - key: 52
+    enabled: true
+    parameters:
+      - 100
+      - 2
+      - 1572864
+  - key: 53
+    enabled: true
+    parameters:
+      - 65535
+      - 107
+      - 0
+  - key: 54
+    enabled: true
+    parameters:
+      - 65535
+      - 113
+      - 0
+  - key: 55
+    enabled: true
+    parameters:
+      - 65535
+      - 107
+      - 524288
+  - key: 56
+    enabled: true
+    parameters:
+      - 65535
+      - 113
+      - 524288
+  - key: 57
+    enabled: true
+    parameters:
+      - 65535
+      - 100
+      - 8650752
+  - key: 59
+    enabled: true
+    parameters:
+      - 65535
+      - 96
+      - 9437184
+  - key: 60
+    enabled: true
+    parameters:
+      - 32
+      - 49
+      - 262144
+  - key: 61
+    enabled: true
+    parameters:
+      - 32
+      - 49
+      - 786432
+  - key: 62
+    enabled: true
+    parameters:
+      - 65535
+      - 111
+      - 0
+  - key: 63
+    enabled: true
+    parameters:
+      - 65535
+      - 111
+      - 131072
+  - key: 64
+    enabled: false
+    parameters:
+      - 100
+      - 2
+      - 1048576
+  - key: 65
+    enabled: false
+    parameters:
+      - 65535
+      - 49
+      - 1572864
+  - key: 7
+    enabled: true
+    parameters:
+      - 65535
+      - 120
+      - 8650752
+  - key: 79
+    enabled: false
+    parameters:
+      - 65535
+      - 123
+      - 8650752
+  - key: 8
+    enabled: true
+    parameters:
+      - 65535
+      - 99
+      - 8650752
+  - key: 80
+    enabled: false
+    parameters:
+      - 65535
+      - 123
+      - 8781824
+  - key: 81
+    enabled: false
+    parameters:
+      - 65535
+      - 124
+      - 8650752
+  - key: 82
+    enabled: false
+    parameters:
+      - 65535
+      - 124
+      - 8781824
+  - key: 9
+    enabled: true
+    parameters:
+      - 65535
+      - 118
+      - 8650752
+  - key: 98
+    enabled: true
+    parameters:
+      - 47
+      - 44
+      - 1179648
