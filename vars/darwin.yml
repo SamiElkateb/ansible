@@ -27,6 +27,11 @@ dock_apps:
   - /Applications/Firefox.app
   - /Applications/Alacritty.app
 
+LanguageRegion:
+  languages:  
+    - en
+    # - fr
+
 enabled_shortcuts:
   - key: 10
     enabled: 'true'

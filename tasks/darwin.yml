@@ -1,42 +1,10 @@
-  - name: Packages
-    include_tasks: darwin/packages.yml
+  - name: Homebrew
+    include_tasks: darwin/homebrew.yml
+    no_log: true
 
-  - name: Ensure Homebrew Packages Installed
-    community.general.homebrew:
-      name: "{{ item.name | default(item) }}"
-      state: "{{ item.state | default('present') }}"
-    loop: "{{ homebrew_installed_packages }}"
+  - name: System Configuration
+    include_tasks: darwin/configuration.yml
 
-  - name: Ensure Homebrew Casks Installed
-    community.general.homebrew_cask:
-      name: "{{ item.name | default(item) }}"
-      state: "{{ item.state | default('present') }}"
-    loop: "{{ homebrew_cask_apps }}"
-
-  - name: Reset Dock
-    command: defaults write com.apple.dock persistent-apps -array
-
-  - name: Add Apps to Dock
-    command: >
-      defaults write com.apple.dock persistent-apps -array-add 
-      '<dict>
-        <key>tile-data</key>
-        <dict>
-          <key>file-data</key>
-          <dict>
-            <key>_CFURLString</key>
-            <string>{{ item.name | default(item) }}</string>
-            <key>_CFURLStringType</key>
-            <integer>0</integer>
-          </dict>
-        </dict>
-      </dict>'
-    loop: "{{ dock_apps }}"
-
-  - name: Ensure Number Spaces
-    command: "{{ install_scripts_dir}}/set_min_spaces.sh 10"
-    register: spaces
-    changed_when: "'No new spaces added.' not in spaces.stdout"
 
   - name: Change Shortcuts
     command: >
@@ -84,3 +52,4 @@
       git sparse-checkout add patched-fonts/Hack
       ./install.sh hack
     when: hack_exists is failed
+

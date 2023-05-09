@@ -1,0 +1,28 @@
+- name: "Language & Region"
+  osx_defaults: 
+    domain: NSGlobalDomain
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+  loop:
+    - { key: 'AppleLanguages', type: 'array', value: '{{ LanguageRegion.languages }}' }
+  when: item.value | string | length > 0
+
+- name: "Dock - Persistent Apps - Build apps list"
+  set_fact:
+    persistent_apps_array: "{{ dock_apps | map('regex_replace', '^(.*)$', '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>\\1</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>') | list }}"
+  when: dock_apps is defined and dock_apps != []
+
+- name: "Dock - Persistent Apps - Add to dock"
+  osx_defaults: 
+    key: persistent-apps
+    domain: com.apple.dock
+    type: array
+    value: "{{ persistent_apps_array }}"
+  when: persistent_apps_array is defined and persistent_apps_array != []
+  notify: Restart Dock
+
+- name: Ensure Number Spaces
+  command: "{{ install_scripts_dir}}/set_min_spaces.sh 10"
+  register: spaces
+  changed_when: "'No new spaces added.' not in spaces.stdout"
