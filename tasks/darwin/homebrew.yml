@@ -15,3 +15,19 @@
 #     name: "{{ item.name | default(item) }}"
 #     state: "{{ item.state | default('present') }}"
 #   loop: "{{ homebrew_cask_apps }}"
+
+- name: Download LunarVim
+  get_url:
+    url: https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh
+    dest: "{{ download_dir }}/lvim_install.sh"
+    checksum: sha256:297a628c7a806dc5c9088364b69d633254a7bc413ff594a6b25d0e2659aad35b
+    mode: 0755
+
+- name: Install Lunarvim
+  shell:
+    cmd: > 
+      LV_BRANCH='release-1.3/neovim-0.9' 
+      yes | {{ download_dir }}/lvim_install.sh
+    creates: "{{ home }}/.local/bin/lvim"
+  register: lviminstall
+

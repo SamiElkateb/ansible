@@ -1,6 +1,5 @@
   - name: Homebrew
     include_tasks: darwin/homebrew.yml
-    no_log: true
 
   - name: System Configuration
     include_tasks: darwin/configuration.yml

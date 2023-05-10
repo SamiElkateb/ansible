@@ -8,6 +8,7 @@ homebrew_installed_packages:
   - zathura
   - gh
   - lazygit
+  - rust
   # TODO: add nvm 
 
 homebrew_taps:
