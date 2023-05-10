@@ -1,9 +1,5 @@
-  - name: Apps
-    include_tasks: darwin/installs.yml
+- name: Apps
+  include_tasks: darwin/installs.yml
 
-  - name: System Configuration
-    include_tasks: darwin/configuration.yml
-
-  - name: Restart Dock
-    command: killall Dock
-
+- name: System Configuration
+  include_tasks: darwin/configuration.yml

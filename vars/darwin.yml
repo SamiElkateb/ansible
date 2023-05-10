@@ -27,9 +27,9 @@ homebrew_cask_apps:
   - font-hack
 
 dock_apps:
-  - /System/Applications/Launchpad.app
-  - /Applications/Firefox.app
-  - /Applications/Alacritty.app
+  - Launchpad
+  - Firefox
+  - Alacritty
 
 LanguageRegion:
   languages:  

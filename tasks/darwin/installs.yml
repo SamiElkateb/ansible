@@ -18,12 +18,13 @@
 
 - name: Ensure node 18 installed
   shell:
-    cmd: >
-      source {{ home }}/.zshrc
+    cmd: |
+      source /opt/homebrew/opt/nvm/nvm.sh
       nvm install 18
       nvm use 18
     creates: "{{ home }}/.nvm/versions/node"
-    executable: /bin/zsh
+    executable: /bin/bash
+  register: test
 
 - name: Download LunarVim Installation
   get_url:
@@ -34,7 +35,7 @@
 
 - name: Ensure LunarVim Installed
   shell:
-    cmd: > 
+    cmd: >
       LV_BRANCH='release-1.3/neovim-0.9' 
       yes | {{ download_dir }}/lvim_install.sh
     creates: "{{ home }}/.local/bin/lvim"
