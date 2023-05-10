@@ -5,32 +5,6 @@
   - name: System Configuration
     include_tasks: darwin/configuration.yml
 
-
-  - name: Change Shortcuts
-    command: >
-      defaults write com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add {{ item.key }} '
-        <dict>
-          <key>enabled</key><{{ item.enabled }}/>
-          <key>value</key><dict>
-            <key>type</key><string>standard</string>
-            <key>parameters</key>
-            <array>
-              <integer>{{ item.parameters.0 }}</integer>
-              <integer>{{ item.parameters.1 }}</integer>
-              <integer>{{ item.parameters.2 }}</integer>
-            </array>
-          </dict>
-        </dict>'
-    loop: "{{ enabled_shortcuts }}"
-
-  - name: Disable Shortcuts
-    command: >
-      defaults write com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add {{ item.key }} '
-        <dict>
-          <key>enabled</key><{{ item.enabled }}/>
-        </dict>'
-    loop: "{{ disabled_shortcuts }}"
-
   - name: Restart Dock
     command: killall Dock
 
