@@ -1,14 +1,14 @@
 homebrew_installed_packages:
+  - rust
   - neovim
   - tmux
+  - fzf
+  - lazygit
   - koekeishiya/formulae/yabai
   - skhd
   - ripgrep
-  - fzf
   - zathura
   - gh
-  - lazygit
-  - rust
   # TODO: add nvm 
 
 homebrew_taps:
@@ -22,6 +22,7 @@ homebrew_cask_apps:
   - raycast
   - karabiner-elements
   - lulu
+  - android-studio
 
 dock_apps:
   - /System/Applications/Launchpad.app

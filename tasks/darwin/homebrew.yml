@@ -15,6 +15,22 @@
 #     name: "{{ item.name | default(item) }}"
 #     state: "{{ item.state | default('present') }}"
 #   loop: "{{ homebrew_cask_apps }}"
+- block: 
+  - name: Ensure Nvm downloaded
+    get_url:
+      url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh
+      dest: "{{ download_dir }}/nvm_install.sh"
+      checksum: sha256:2ed5e94ba12434370f0358800deb69f514e8bce90f13beb0e1b241d42c6abafd
+      mode: 0755
+
+  - name: Ensure nvm installed
+    shell:
+      cmd: >
+        {{ download_dir }}/nvm_install.sh
+        nvm install 18
+        nvm use 18
+      creates: "{{ home }}/.nvm"
+
 
 - name: Download LunarVim
   get_url:
@@ -29,5 +45,4 @@
       LV_BRANCH='release-1.3/neovim-0.9' 
       yes | {{ download_dir }}/lvim_install.sh
     creates: "{{ home }}/.local/bin/lvim"
-  register: lviminstall
 
