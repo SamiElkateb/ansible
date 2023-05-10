@@ -24,7 +24,7 @@ homebrew_cask_apps:
   - karabiner-elements
   - lulu
   - android-studio
-  - font-hack
+  - font-hack-nerd-font
 
 dock_apps:
   - Launchpad

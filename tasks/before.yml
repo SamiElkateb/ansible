@@ -4,20 +4,12 @@
       dest: "{{ home }}/.config"
       recursive: false
 
-  - name: Check .zshrc exists
-    stat:
-      path: "{{ home }}/.zshrc"
-    register: stat_result
-
-  - name: Ensure zsh sourced
-    shell:
-      cmd: |
-        touch {{ home }}/.zshrc
-        echo "source {{ home }}/.config/zsh/.zshrc" >> "{{ home }}/.zshrc"
-        source {{ home }}/.zshrc
-      executable: /bin/zsh
-    changed_when: false
-    # when: not stat_result.stat.exists
+  - name: Ensure zsh configured
+    shell: "{{ playbook_dir }}/scripts/configure_zsh.sh"
+    register: zsh_conf
+    changed_when: "'Shell already configured.' not in zsh_conf.stdout"
 
   - name: "Use OTC"
-    command: "otc.sh use"
+    command: "{{ bin_dir }}/otc.sh use"
+    register: otc
+    changed_when: "'use-otc: RSA key already exists!' not in otc.stdout"

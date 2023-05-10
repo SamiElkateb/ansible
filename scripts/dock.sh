@@ -15,7 +15,7 @@ CURRENT_DOCK=($(defaults read com.apple.dock persistent-apps|grep "\"_CFURLStrin
 i=0
 DIFFERENT=0
 for DOCK_APP in "${CURRENT_DOCK[@]}"; do
-   echo "$DOCK_APP"|grep -s "file://${APP_PATHS["$i"]}\b" &>/dev/null
+   echo "$DOCK_APP"|grep -q "file://${APP_PATHS["$i"]}\b"
    if [ "$?" -ne 0 ];then
     DIFFERENT=1
    fi

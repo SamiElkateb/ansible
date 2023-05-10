@@ -8,7 +8,7 @@
     shell: "echo \"{{lookup('unvault', '{{ config_dir }}/personal/github_token')}}\"|gh auth login --with-token "
 
   - name: "Delete OTC"
-    command: "otc.sh delete"
+    command: "{{ bin_dir }}/otc.sh delete"
 
   - name: Copy keys
     copy:

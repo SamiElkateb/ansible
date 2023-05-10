@@ -9,24 +9,24 @@
   when: item.value | string | length > 0
 
 - name: "Ensure Dock Apps Configured"
-  command: "{{ install_scripts_dir }}/dock.sh {{ dock_apps | join(' ') }}"
+  command: "{{ playbook_dir }}/scripts/dock.sh {{ dock_apps | join(' ') }}"
   register: dock
   changed_when: "'Dock not modified.' not in dock.stdout"
 
 - name: Ensure Number Spaces
-  command: "{{ install_scripts_dir }}/set_min_spaces.sh 10"
+  command: "{{ playbook_dir }}/scripts/set_min_spaces.sh 10"
   register: spaces
   changed_when: "'No new spaces added.' not in spaces.stdout"
 
 - name: Shortcuts - Update
   register: updatedshortcuts
-  command: "{{ install_scripts_dir }}/shortcuts.sh -k {{ item.key }} -a {{ item.parameters.0 }} -b {{ item.parameters.1 }} -c {{ item.parameters.2 }}"
+  command: "{{ playbook_dir }}/scripts/shortcuts.sh -k {{ item.key }} -a {{ item.parameters.0 }} -b {{ item.parameters.1 }} -c {{ item.parameters.2 }}"
   changed_when: "'Keymap updated' in updatedshortcuts.stdout"
   loop: "{{ enabled_shortcuts }}"
 
 - name: Shortcuts - Disable
   register: disableshortcuts
-  command: "{{ install_scripts_dir}}/shortcuts.sh -k {{ item }}"
+  command: "{{ playbook_dir }}/scripts/shortcuts.sh -k {{ item }}"
   changed_when: "'Keymap updated' in disableshortcuts.stdout"
   loop: "{{ disabled_shortcuts }}"
 
