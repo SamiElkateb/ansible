@@ -9,10 +9,11 @@ homebrew_installed_packages:
   - ripgrep
   - zathura
   - gh
-  # TODO: add nvm 
+  - nvm 
 
 homebrew_taps:
   - zegervdv/zathura
+  - homebrew/cask-fonts
 
 homebrew_cask_apps:
   - alacritty
@@ -23,6 +24,7 @@ homebrew_cask_apps:
   - karabiner-elements
   - lulu
   - android-studio
+  - font-hack
 
 dock_apps:
   - /System/Applications/Launchpad.app

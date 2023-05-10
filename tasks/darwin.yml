@@ -1,28 +1,9 @@
-  - name: Homebrew
-    include_tasks: darwin/homebrew.yml
+  - name: Apps
+    include_tasks: darwin/installs.yml
 
   - name: System Configuration
     include_tasks: darwin/configuration.yml
 
   - name: Restart Dock
     command: killall Dock
-
-  # Install Nerd Fonts
-  - name: Ensure fonts directory
-    file:
-      path: "{{ home }}/Library/Fonts/NerdFonts"
-      state: directory
-
-  - name: Check Hack exists
-    shell: "ls {{ home }}/Library/Fonts/NerdFonts/Hack*Nerd*Font*Complete*"
-    register: hack_exists
-    ignore_errors: true
-
-  - name: Ensure Nerd Font Installed
-    shell: |
-      git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts {{ download_dir }}/nerd-fonts
-      cd {{ download_dir }}/nerd-fonts
-      git sparse-checkout add patched-fonts/Hack
-      ./install.sh hack
-    when: hack_exists is failed
 
