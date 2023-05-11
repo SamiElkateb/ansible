@@ -17,6 +17,7 @@ homebrew_taps:
 
 homebrew_cask_apps:
   - alacritty
+  - docker
   - firefox
   - google-chrome
   - postman
@@ -24,8 +25,6 @@ homebrew_cask_apps:
   - lulu
   - android-studio
   - font-hack-nerd-font
-  - name: karabiner-elements
-    state: absent
   - hyperkey
 
 dock_apps:

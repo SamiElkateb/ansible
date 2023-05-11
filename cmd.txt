@@ -1,4 +1,0 @@
-/usr/libexec/PlistBuddy -c
-add :activity:"Management Data":Monitors:Spaces dict
-add :activity:swim string 10-6
-add :activity:running string 9-6
