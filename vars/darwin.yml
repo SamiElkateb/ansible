@@ -21,10 +21,12 @@ homebrew_cask_apps:
   - google-chrome
   - postman
   - raycast
-  - karabiner-elements
   - lulu
   - android-studio
   - font-hack-nerd-font
+  - name: karabiner-elements
+    state: absent
+  - hyperkey
 
 dock_apps:
   - Launchpad
