@@ -1,42 +1,132 @@
-- name: Add Hombrew Taps
-  homebrew_tap:
-    name: "{{ item.name | default(item) }}"
-    state: "{{ item.state | default('present') }}"
-  loop: "{{ homebrew_taps }}"
+############ Core Install #############
+- name: Core Installation
+  tags: 
+    - core
+    - basic
+    - extended
+  block:
+    - name: Ensure Core Taps Sourced
+      homebrew_tap:
+        name: "{{ item.name | default(item) }}"
+        state: "{{ item.state | default('present') }}"
+      loop: "{{ core_taps }}"
 
-- name: Ensure Homebrew Packages Installed
+    - name: Ensure Core Packages Installed
+      homebrew:
+        name: "{{ item.name | default(item) }}"
+        state: "{{ item.state | default('present') }}"
+      loop: "{{ core_packages }}"
+
+    - name: Ensure Core Casks Installed
+      homebrew_cask:
+        name: "{{ item.name | default(item) }}"
+        state: "{{ item.state | default('present') }}"
+      loop: "{{ core_apps }}"
+
+    - name: Ensure node 18 installed
+      shell:
+        cmd: |
+          source /opt/homebrew/opt/nvm/nvm.sh
+          nvm install 18
+          nvm use 18
+        creates: "{{ home }}/.nvm/versions/node"
+        executable: /bin/bash
+      register: test
+
+    - name: Download LunarVim Installation
+      get_url:
+        url: https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh
+        dest: "{{ download_dir }}/lvim_install.sh"
+        checksum: sha256:297a628c7a806dc5c9088364b69d633254a7bc413ff594a6b25d0e2659aad35b
+        mode: 0755
+
+    - name: Ensure LunarVim Installed
+      shell:
+        cmd: >
+          LV_BRANCH='release-1.3/neovim-0.9' 
+          yes | {{ download_dir }}/lvim_install.sh
+        creates: "{{ home }}/.local/bin/lvim"
+
+#######################################
+######## System Config Install ########
+
+- name: System Config Installation
+  tags: 
+    - system_config
+    - basic
+  block:
+  - name: Ensure System Config Packages Installed
+    homebrew:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    loop: "{{ system_config_packages }}"
+
+  - name: Ensure System Config Apps Installed
+    homebrew_cask:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    loop: "{{ system_config_apps }}"
+
+#######################################
+############ Auth Install #############
+
+- name: Ensure Auth Packages Installed
   homebrew:
     name: "{{ item.name | default(item) }}"
     state: "{{ item.state | default('present') }}"
-  loop: "{{ homebrew_installed_packages }}"
+  loop: "{{ auth_packages }}"
+  tags: auth
 
-- name: Ensure Homebrew Casks Installed
+#######################################
+############ Basic Install #############
+
+- name: Basic Installation
+  tags: 
+    - basic
+    - extended
+  block:
+  - name: Ensure Base Packages Installed
+    homebrew:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    when: 
+    loop: "{{ base_packages }}"
+  - name: Ensure Base Apps Installed
+    homebrew_cask:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    loop: "{{ base_apps }}"
+
+#######################################
+############ Dev Install #############
+
+- name: Ensure Dev Apps Installed
   homebrew_cask:
     name: "{{ item.name | default(item) }}"
     state: "{{ item.state | default('present') }}"
-  loop: "{{ homebrew_cask_apps }}"
+  loop: "{{ dev_apps }}"
+  tags: 
+    - dev
+    - extended
 
-- name: Ensure node 18 installed
-  shell:
-    cmd: |
-      source /opt/homebrew/opt/nvm/nvm.sh
-      nvm install 18
-      nvm use 18
-    creates: "{{ home }}/.nvm/versions/node"
-    executable: /bin/bash
-  register: test
+#######################################
+######## Extended Install ########
 
-- name: Download LunarVim Installation
-  get_url:
-    url: https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh
-    dest: "{{ download_dir }}/lvim_install.sh"
-    checksum: sha256:297a628c7a806dc5c9088364b69d633254a7bc413ff594a6b25d0e2659aad35b
-    mode: 0755
-
-- name: Ensure LunarVim Installed
-  shell:
-    cmd: >
-      LV_BRANCH='release-1.3/neovim-0.9' 
-      yes | {{ download_dir }}/lvim_install.sh
-    creates: "{{ home }}/.local/bin/lvim"
-
+- name: Extended Installation
+  tags: extended
+  block:
+  - name: Ensure Extended Taps Sourced
+    homebrew_tap:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    loop: "{{ extended_taps }}"
+  - name: Ensure Extended Packages Installed
+    homebrew:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    loop: "{{ extended_packages }}"
+  - name: Ensure Extended Apps Installed
+    homebrew_cask:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    loop: "{{ extended_apps }}"

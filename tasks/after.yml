@@ -1,30 +1,13 @@
-  - name: "Use OTC"
-    command: "{{ bin_dir }}/otc.sh use"
-    register: otc
-    changed_when: "'use-otc: RSA key already exists!' not in otc.stdout"
-
   - name: "Ensure Git Repository Updated"
     git:
       repo: "{{ repository }}"
       dest: "{{ home }}/.config"
       accept_hostkey: true
+    tags: 
+      -  auth
 
   - name: "Add GitHub token"
-    shell: "echo \"{{lookup('unvault', '{{ config_dir }}/personal/github_token')}}\"|gh auth login --with-token "
-    tags: [ 'keys', 'never' ]
-
-  - name: "Delete OTC"
-    command: "{{ bin_dir }}/otc.sh delete"
-    register: otc
-    changed_when: "'No new changes.' not in otc.stdout"
-    tags: [ 'keys', 'never' ]
-
-  - name: Copy keys
-    copy:
-      src: "{{ config_dir }}/personal/{{ item.src_name | default('item') }}"
-      dest: "{{ home }}/.ssh/{{ item.dest_name | default('item') }}"
-      decrypt: yes
-      mode: "{{ item.mode | default(700) }}"
-    loop: "{{ keys }}"
-    tags: [ 'keys', 'never' ]
-
+    shell: "echo \"{{lookup('unvault', '{{ config_dir }}/personal/github_general_personal_token')}}\"|gh auth login --with-token "
+    tags: 
+      - auth
+      - never

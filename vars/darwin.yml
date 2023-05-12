@@ -1,32 +1,45 @@
-homebrew_installed_packages:
+core_packages:
   - yadm
   - rust
   - neovim
   - tmux
   - fzf
   - lazygit
+  - ripgrep
+  - nvm 
+core_taps:
+  - homebrew/cask-fonts
+core_apps:
+  - alacritty
+  - font-hack-nerd-font
+
+auth_packages:
+  - gh
+
+system_config_packages:
   - koekeishiya/formulae/yabai
   - skhd
-  - ripgrep
-  - zathura
-  - gh
-  - nvm 
+system_config_apps:
+  - raycast
+  - hyperkey
 
-homebrew_taps:
-  - zegervdv/zathura
-  - homebrew/cask-fonts
 
-homebrew_cask_apps:
-  - alacritty
+base_packages:
   - docker
+base_apps:
   - firefox
   - google-chrome
+
+dev_apps:
   - postman
-  - raycast
-  - lulu
   - android-studio
-  - font-hack-nerd-font
-  - hyperkey
+
+extended_taps:
+  - zegervdv/zathura
+extended_packages:
+  - zathura
+extended_apps:
+  - lulu
 
 dock_apps:
   - Launchpad

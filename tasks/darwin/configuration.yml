@@ -1,32 +1,37 @@
-- name: "Language & Region"
-  osx_defaults: 
-    domain: NSGlobalDomain
-    key: "{{ item.key }}"
-    type: "{{ item.type }}"
-    value: "{{ item.value }}"
-  loop:
-    - { key: 'AppleLanguages', type: 'array', value: '{{ LanguageRegion.languages }}' }
-  when: item.value | string | length > 0
+- name: System Configuration
+  tags: 
+    - system_config
+    - basic
+    - extended
+  block:
+  - name: Language & Region
+    osx_defaults: 
+      domain: NSGlobalDomain
+      key: "{{ item.key }}"
+      type: "{{ item.type }}"
+      value: "{{ item.value }}"
+    loop:
+      - { key: 'AppleLanguages', type: 'array', value: '{{ LanguageRegion.languages }}' }
+    when: item.value | string | length > 0
 
-- name: "Ensure Dock Apps Configured"
-  command: "{{ playbook_dir }}/scripts/dock.sh {{ dock_apps | join(' ') }}"
-  register: dock
-  changed_when: "'Dock not modified.' not in dock.stdout"
+  - name: Ensure Dock Apps Configured
+    command: "{{ playbook_dir }}/scripts/dock.sh {{ dock_apps | join(' ') }}"
+    register: dock
+    changed_when: "'Dock not modified.' not in dock.stdout"
 
-- name: Ensure Number Spaces
-  command: "{{ playbook_dir }}/scripts/set_min_spaces.sh 10"
-  register: spaces
-  changed_when: "'No new spaces added.' not in spaces.stdout"
+  - name: Ensure Number Spaces
+    command: "{{ playbook_dir }}/scripts/set_min_spaces.sh 10"
+    register: spaces
+    changed_when: "'No new spaces added.' not in spaces.stdout"
 
-- name: Ensure Shortcuts Configured
-  register: updatedshortcuts
-  command: > 
-    {{ playbook_dir }}/scripts/shortcuts.sh 
-    -k "{{ item.key | default('item') }}"
-    {% if item.parameters.0 is defined %} -a {{ item.parameters.0 }} {% endif %} 
-    {% if item.parameters.1 is defined %} -b {{ item.parameters.1 }} {% endif %} 
-    {% if item.parameters.2 is defined %} -c {{ item.parameters.2 }} {% endif %} 
-  changed_when: "'Keymap updated' in updatedshortcuts.stdout"
-  with_items: "{{ shortcuts }}"
-  no_log: true
-
+  - name: Ensure Shortcuts Configured
+    register: updatedshortcuts
+    command: > 
+      {{ playbook_dir }}/scripts/shortcuts.sh 
+      -k "{{ item.key | default('item') }}"
+      {% if item.parameters.0 is defined %} -a {{ item.parameters.0 }} {% endif %} 
+      {% if item.parameters.1 is defined %} -b {{ item.parameters.1 }} {% endif %} 
+      {% if item.parameters.2 is defined %} -c {{ item.parameters.2 }} {% endif %} 
+    changed_when: "'Keymap updated' in updatedshortcuts.stdout"
+    with_items: "{{ shortcuts }}"
+    no_log: true

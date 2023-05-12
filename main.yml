@@ -3,18 +3,35 @@
     - ./vars/commons.yml
     - "./vars/{{ ansible_facts['os_family'] }}.yml"
 
+
   tasks:
-    - name: Common Before
-      include_tasks: ./tasks/before.yml
+    - block:
+      - name: Common Before
+        import_tasks: ./tasks/before.yml
 
-    - name: MacOS
-      include_tasks: ./tasks/darwin.yml
-      when: ansible_facts['os_family'] == "Darwin"
+      - name: MacOS
+        include_tasks: ./tasks/darwin.yml
+        when: ansible_facts['os_family'] == "Darwin"
+        tags: always
 
-    - name: Ubuntu
-      include_tasks: ./tasks/ubuntu.yml
-      when: ansible_facts['distribution'] == "Ubuntu"
+      - name: Ubuntu
+        include_tasks: ./tasks/ubuntu.yml
+        when: ansible_facts['distribution'] == "Ubuntu"
+        tags: always
 
-    - name: Common After
-      include_tasks: ./tasks/after.yml
+      - name: Common After
+        import_tasks: ./tasks/after.yml
 
+      always:
+        - name: "Notify"
+          tags: 
+            - never
+            - notify
+          block:
+          - include_vars: ./vault/discord.yaml
+          - name: "Discord"
+            community.general.discord:
+              webhook_id: "{{ webhook_id }}"
+              webhook_token: "{{ webhook_token }}"
+              content: "Ansible playbook has finished"
+              username: Ansible

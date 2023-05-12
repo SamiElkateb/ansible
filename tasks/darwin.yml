@@ -1,5 +1,5 @@
 - name: Apps
-  include_tasks: darwin/installs.yml
+  import_tasks: darwin/installs.yml
 
 - name: System Configuration
-  include_tasks: darwin/configuration.yml
+  import_tasks: darwin/configuration.yml

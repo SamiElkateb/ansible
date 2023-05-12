@@ -4,11 +4,3 @@ config_dir: "{{ home }}/.config"
 bin_dir: "{{ config_dir }}/bin"
 install_scripts_dir: "{{ config_dir }}/ansible/scripts"
 repository: https://github.com/SamiElkateb/dotfiles.git 
-
-keys:
-  - src_name: id_rsa_general
-    dest_name: id_rsa
-    mode: 600
-  - src_name: id_rsa_general.pub
-    dest_name: id_rsa.pub
-    mode: 644

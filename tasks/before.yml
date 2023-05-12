@@ -1,15 +1,12 @@
+- name: Before
+  tags: always
+  block:
   - name: "Ensure Git Repository Present"
     git:
       repo: "{{ repository }}"
       dest: "{{ home }}/.config"
       recursive: false
-
   - name: Ensure zsh configured
     shell: "{{ playbook_dir }}/scripts/configure_zsh.sh"
     register: zsh_conf
     changed_when: "'Shell already configured.' not in zsh_conf.stdout"
-
-  - name: "Use OTC"
-    command: "{{ bin_dir }}/otc.sh use"
-    register: otc
-    changed_when: "'use-otc: RSA key already exists!' not in otc.stdout"
