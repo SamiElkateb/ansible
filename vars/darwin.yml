@@ -37,7 +37,7 @@ LanguageRegion:
     - en
     # - fr
 
-enabled_shortcuts:
+shortcuts:
   - key: 118
     parameters:
       - 38
@@ -83,29 +83,11 @@ enabled_shortcuts:
       - 231
       - 25
       - 1048576
-  - key: 53 # to check
+  - key: 164 #keys_modifiers
     parameters:
-      - 65535
-      - 107
-      - 0
-  - key: 54 # to check
-    parameters:
-      - 65535
-      - 113
-      - 0
-  - key: 55 # to check
-    parameters:
-      - 65535
-      - 107
-      - 524288
-  - key: 56 # to check
-    parameters:
-      - 65535
-      - 113
-      - 524288
-
-disabled_shortcuts:
-  - 15
+      - 262144
+      - 4294705151
+  - 15 # disabled keymaps
   - 160
   - 80
   - 81
@@ -132,10 +114,3 @@ disabled_shortcuts:
   - 64
   - 65
   - 79
-
-keys_modifiers:
-  - key: 164
-    enabled: 'true'
-    parameters:
-      - 262144
-      - 429470515

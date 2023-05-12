@@ -18,15 +18,15 @@
   register: spaces
   changed_when: "'No new spaces added.' not in spaces.stdout"
 
-- name: Shortcuts - Update
+- name: Ensure Shortcuts Configured
   register: updatedshortcuts
-  command: "{{ playbook_dir }}/scripts/shortcuts.sh -k {{ item.key }} -a {{ item.parameters.0 }} -b {{ item.parameters.1 }} -c {{ item.parameters.2 }}"
+  command: > 
+    {{ playbook_dir }}/scripts/shortcuts.sh 
+    -k "{{ item.key | default('item') }}"
+    {% if item.parameters.0 is defined %} -a {{ item.parameters.0 }} {% endif %} 
+    {% if item.parameters.1 is defined %} -b {{ item.parameters.1 }} {% endif %} 
+    {% if item.parameters.2 is defined %} -c {{ item.parameters.2 }} {% endif %} 
   changed_when: "'Keymap updated' in updatedshortcuts.stdout"
-  loop: "{{ enabled_shortcuts }}"
-
-- name: Shortcuts - Disable
-  register: disableshortcuts
-  command: "{{ playbook_dir }}/scripts/shortcuts.sh -k {{ item }}"
-  changed_when: "'Keymap updated' in disableshortcuts.stdout"
-  loop: "{{ disabled_shortcuts }}"
+  with_items: "{{ shortcuts }}"
+  no_log: true
 
