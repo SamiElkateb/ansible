@@ -1,5 +1,5 @@
 core_packages:
-  - yadm
+  - chezmoi
   - rust
   - neovim
   - tmux
