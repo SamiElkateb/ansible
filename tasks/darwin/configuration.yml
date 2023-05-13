@@ -35,3 +35,20 @@
     changed_when: "'Keymap updated' in updatedshortcuts.stdout"
     with_items: "{{ shortcuts }}"
     no_log: true
+
+  - name: Ensure Folders created
+    file:
+      path: "{{ item }}"
+      state: directory
+    loop:
+      - "{{ home }}/repos"
+      - "{{ home }}/workspace"
+      - "/Users/{{ lookup('env', 'USER') }}/Library/LaunchAgents/"
+
+  - name: Ensure System Configuration Services Started
+    command: "{{ item }} --start-service"
+    register: services_result
+    changed_when: "'installation' in services_result.stdout"
+    loop: 
+      - yabai
+      - skhd
