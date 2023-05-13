@@ -44,8 +44,19 @@
       shell:
         cmd: >
           LV_BRANCH='release-1.3/neovim-0.9' 
-          yes | {{ download_dir }}/lvim_install.sh
+          yes | {{ download_dir }}/lvim_install.sh && rm -rf {{ config_dir }}/lvim
         creates: "{{ home }}/.local/bin/lvim"
+
+    - name: Ensure Chezmoi Initialized
+      command: "chezmoi init {{ github_username }}"
+      args:
+        creates: "~/.local/share/chezmoi"
+
+- name: Ensure core Chezmoi Applied
+  tags: ["core", "never"]
+  command: "chezmoi -R --force apply {{ config_dir }}/lvim {{ config_dir }}/tmux"
+  args:
+    creates: "{{ config_dir }}/lvim"
 
 #######################################
 ######## System Config Install ########

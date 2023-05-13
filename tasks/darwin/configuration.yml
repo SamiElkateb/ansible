@@ -4,6 +4,22 @@
     - basic
     - extended
   block:
+  - name: Ensure Chezmoi Internals Applied
+    command: "chezmoi update --exclude externals"
+    register: chezmoi
+    changed_when: "'Already up to date' not in chezmoi.stdout"
+
+  - name: Ensure Chezmoi Non Auth Externals Applied
+    command: "chezmoi apply {{ config_dir }}/{{ item }}"
+    register: chezmoi
+    changed_when: "'Already up to date' not in chezmoi.stdout"
+    loop: ["lvim", "ansible"]
+
+  - name: Ensure Zsh Configured
+    command: "{{ playbook_dir }}/scripts/configure_zsh.sh"
+    register: zsh_conf
+    changed_when: "'Shell configured successfully.' in zsh_conf.stdout"
+
   - name: Language & Region
     osx_defaults: 
       domain: NSGlobalDomain

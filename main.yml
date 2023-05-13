@@ -6,9 +6,6 @@
 
   tasks:
     - block:
-      - name: Common Before
-        import_tasks: ./tasks/before.yml
-
       - name: MacOS
         include_tasks: ./tasks/darwin.yml
         when: ansible_facts['os_family'] == "Darwin"

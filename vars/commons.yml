@@ -3,4 +3,5 @@ home: "{{ lookup('env', 'HOME') }}"
 config_dir: "{{ home }}/.config"
 bin_dir: "{{ config_dir }}/bin"
 install_scripts_dir: "{{ config_dir }}/ansible/scripts"
-repository: https://github.com/SamiElkateb/dotfiles.git 
+github_username: SamiElkateb
+repository: "https://github.com/{{ github_username }}/dotfiles.git"

@@ -1,13 +1,13 @@
-  - name: "Ensure Git Repository Updated"
-    git:
-      repo: "{{ repository }}"
-      dest: "{{ home }}/.config"
-      accept_hostkey: true
-    tags: 
-      -  auth
 
-  - name: "Add GitHub token"
-    shell: "echo \"{{lookup('unvault', '{{ config_dir }}/personal/github_general_personal_token')}}\"|gh auth login --with-token "
-    tags: 
-      - auth
-      - never
+- name: System Configuration
+  tags: 
+    - auth
+    - never
+  block:
+    - name: Ensure Chezmoi Auth Externals Applied
+      command: "chezmoi apply {{ config_dir }}/{{ item }}"
+      register: chezmoi
+      changed_when: "'Already up to date' not in chezmoi.stdout"
+      loop: ["personal", "nvim"]
+    - name: "Add GitHub token"
+      shell: "echo \"{{lookup('unvault', '{{ config_dir }}/personal/github_general_personal_token')}}\"|gh auth login --with-token "
