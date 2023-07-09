@@ -26,15 +26,19 @@ system_config_apps:
 
 base_packages:
   - docker
-  - minikube
 base_apps:
   - docker
   - firefox
   - google-chrome
 
+dev_packages:
+  - minikube
+  - terraform
+
 dev_apps:
   - postman
   - android-studio
+  - vagrant
 
 extended_taps:
   - zegervdv/zathura

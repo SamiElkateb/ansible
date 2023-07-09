@@ -111,14 +111,23 @@
 #######################################
 ############ Dev Install #############
 
-- name: Ensure Dev Apps Installed
-  homebrew_cask:
-    name: "{{ item.name | default(item) }}"
-    state: "{{ item.state | default('present') }}"
-  loop: "{{ dev_apps }}"
+- name: Dev Installation
   tags: 
     - dev
     - extended
+  block:
+  - name: Ensure Dev Packages Installed
+    homebrew:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    when: 
+    loop: "{{ dev_packages }}"
+  - name: Ensure Dev Apps Installed
+    homebrew_cask:
+      name: "{{ item.name | default(item) }}"
+      state: "{{ item.state | default('present') }}"
+    loop: "{{ dev_apps }}"
+
 
 #######################################
 ######## Extended Install ########
