@@ -34,6 +34,7 @@ base_apps:
 dev_packages:
   - minikube
   - terraform
+  - helm
 
 dev_apps:
   - postman
