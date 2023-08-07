@@ -7,6 +7,8 @@ core_packages:
   - lazygit
   - ripgrep
   - nvm 
+  - pre-commit
+  - detect-secret
 core_taps:
   - homebrew/cask-fonts
 core_apps:
